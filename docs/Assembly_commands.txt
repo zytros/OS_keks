@@ -1,0 +1,13 @@
+arithmetic:
+    add
+    sub
+    mul
+    div
+    and
+    or
+    xor
+    not
+    cmp
+memory:
+    mov
+
