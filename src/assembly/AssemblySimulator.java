@@ -10,7 +10,8 @@ public class AssemblySimulator {
     InstructionStream instructionStream;
     public static void main(String[] args) {
         System.out.println(Operation.add);
-
+        AssemblyRunner assemblyRunner = new AssemblyRunner();
+        assemblyRunner.execute(new Instruction(Operation.cmp,new Argument(ArgType.immediate, 0L), new Argument(ArgType.immediate, 0L)));
     }
 
     public void run(){

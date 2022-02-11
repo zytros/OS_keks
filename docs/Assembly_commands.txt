@@ -10,7 +10,6 @@ logic:
     not
 shift:
     sar
-    sal
     shr
     shl
 memory:
