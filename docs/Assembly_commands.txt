@@ -3,11 +3,24 @@ arithmetic:
     sub
     mul
     div
+logic:
     and
     or
     xor
     not
-    cmp
+shift:
+    sar
+    sal
+    shr
+    shl
 memory:
     mov
+    lea
+    push
+    pop
+controlflow:
+    cmp
+    call
+    ret
+    jcc
 
