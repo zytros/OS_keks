@@ -1,5 +1,7 @@
 package assembly;
 
+import assembly.enums.ArgType;
+
 public class Argument {
     ArgType argType;
     long data;

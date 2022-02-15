@@ -1,5 +1,8 @@
 package assembly;
 
+import assembly.enums.ArgType;
+import assembly.enums.ConditionCode;
+
 import java.math.BigInteger;
 
 public class AssemblyRunner {

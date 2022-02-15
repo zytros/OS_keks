@@ -1,6 +1,9 @@
 package assembly;
 
 
+import assembly.enums.ArgType;
+import assembly.enums.Operation;
+
 import java.io.File;
 
 public class AssemblySimulator {

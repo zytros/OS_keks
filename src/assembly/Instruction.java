@@ -1,5 +1,7 @@
 package assembly;
 
+import assembly.enums.Operation;
+
 public class Instruction {
     Operation op;
     Argument arg1;
