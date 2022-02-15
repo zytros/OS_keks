@@ -32,7 +32,7 @@ Indirect 1:
     data1 = value
         example:
         data1 = 500
-        mov (500) xxx
+        mov ($500) xxx
 
 Indirect 2:
     data1 = register in num val
@@ -46,7 +46,7 @@ Indirect 3:
         example:
         data1 = 500
         data2 = 0
-        mov 500(%rax) xxx
+        mov ($500,%rax) xxx
 
 Condition Code:
     see ConditionCodes.txt

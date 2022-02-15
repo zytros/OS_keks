@@ -181,7 +181,7 @@ public class AssemblyRunner {
 
     ConditionCode getCCFromArg(Argument arg){
         if (arg.argType == ArgType.condition){
-            switch ((int) arg.data){
+            switch ((int) arg.data1){
                 case 1:
                     return ConditionCode.eq;
                 case 2:
@@ -203,15 +203,15 @@ public class AssemblyRunner {
     long getAddress(Argument arg){
         switch (arg.argType){
             case register:
-                return readRegister(arg.data);
+                return readRegister(arg.data1);
             case immediate:
-                return arg.data;
+                return arg.data1;
             case indirect1:
-                return memory.memory[(int)arg.data];
+                return memory.memory[(int)arg.data1];
             case indirect2:
-                return memory.memory[(int) readRegister(arg.data)];
+                return memory.memory[(int) readRegister(arg.data1)];
             case indirect3:
-                return memory.memory[(int)arg.data + (int) readRegister(arg.data2)];
+                return memory.memory[(int)arg.data1 + (int) readRegister(arg.data2)];
             case condition:
                 break;
         }
