@@ -1,0 +1,18 @@
+eq:
+    Equals
+    num val: 1
+neq:
+    not equals
+    num val: 2
+lt:
+    less than
+    num val: 3
+le:
+    less than or equal
+    num val: 4
+gt:
+    greater than
+    num val: 5
+ge:
+    greater or equal than
+    num val: 6

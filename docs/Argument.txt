@@ -1,0 +1,52 @@
+immediate:
+    data1 = value
+        example:
+        data1 = 42
+        add $42 xxx
+
+Register:
+    data1 = register in num val
+        rax = 0
+        rbx = 1
+        rcx = 2
+        rdx = 3
+        rsi = 4
+        rdi = 5
+        rbp = 6
+        rsp = 7
+        r8 = 8
+        r9 = 9
+        r10 = 10
+        r11 = 11
+        r12 = 12
+        r13 = 13
+        r14 = 14
+        r15 = 15
+        isp = 16
+
+        example:
+        data1 = 0
+        mov %rax xxx
+
+Indirect 1:
+    data1 = value
+        example:
+        data1 = 500
+        mov (500) xxx
+
+Indirect 2:
+    data1 = register in num val
+        example:
+        data1 = 0
+        mov (%rax) xxx
+
+Indirect 3:
+    data1 = offset in immediate
+    data2 = register in num val
+        example:
+        data1 = 500
+        data2 = 0
+        mov 500(%rax) xxx
+
+Condition Code:
+    see ConditionCodes.txt
