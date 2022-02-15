@@ -50,3 +50,6 @@ Indirect 3:
 
 Condition Code:
     see ConditionCodes.txt
+
+NoArg
+    when only one argument is needed
