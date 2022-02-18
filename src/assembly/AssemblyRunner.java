@@ -6,18 +6,21 @@ import assembly.enums.ConditionCode;
 import java.math.BigInteger;
 
 public class AssemblyRunner {
-    DataRegs regs = new DataRegs();
+    DataRegs regs;
     Memory memory;
+
+    public AssemblyRunner(DataRegs regs, Memory memory) {
+        this.regs = regs;
+        this.memory = memory;
+    }
+
     public void execute(Instruction instr){
 
-        long data1 = 18189;
-        long data2 = 1784537534;
-        long dest = 574;
+        boolean save = true;
 
-
-        //TODO
-
-
+        long data1 = getData(instr.arg1);
+        long data2 = getData(instr.arg2);
+        long dest = 0L;
 
         BigInteger a = BigInteger.valueOf(data1);
         BigInteger b = BigInteger.valueOf(data2);
@@ -70,12 +73,14 @@ public class AssemblyRunner {
                 dest = data1 << data2;
                 bres = a.pow((int)data2);
                 setFlags(bres, dest);
+                saveData(dest, instr.arg1);
+                save = false;
                 break;
             case mov:
                 dest = data1;
                 break;
             case lea:
-                dest = getData(instr.arg1);
+                dest = lea(instr.arg1);
                 break;
             case push:
                 //TODO
@@ -116,6 +121,11 @@ public class AssemblyRunner {
                 }
                 break;
         }
+        if (save) {
+            saveData(dest, instr.arg2);
+        }
+
+
     }
 
     void setFlags(BigInteger bres, long res){
@@ -127,12 +137,34 @@ public class AssemblyRunner {
     }
 
     long getData(Argument arg){
+        switch (arg.argType){
+            case immediate:
+            case condition:
+                return arg.data1;
+            case register:
+                return readRegister(arg.data1);
+            case indirect1:
+                return memory.memory[(int)arg.data1];
+            case indirect2:
+                return memory.memory[(int) readRegister(arg.data1)];
+            case indirect3:
+                return memory.memory[(int)arg.data1 + (int) readRegister(arg.data2)];
+            case noarg:
+                return 0L;
+        }
         return 0L;
     }
 
     void saveData(long val, Argument arg){
         switch (arg.argType){
-
+            case register:
+                saveToReg(val, arg.data1);
+                break;
+            case indirect1:
+            case indirect2:
+            case indirect3:
+                memory.memory[(int)lea(arg)] = val;
+                break;
         }
     }
 
@@ -200,25 +232,6 @@ public class AssemblyRunner {
         return null;
     }
 
-    long getAddress(Argument arg){
-        switch (arg.argType){
-            case register:
-                return readRegister(arg.data1);
-            case immediate:
-                return arg.data1;
-            case indirect1:
-                return memory.memory[(int)arg.data1];
-            case indirect2:
-                return memory.memory[(int) readRegister(arg.data1)];
-            case indirect3:
-                return memory.memory[(int)arg.data1 + (int) readRegister(arg.data2)];
-            case condition:
-                break;
-        }
-
-        return 0;
-    }
-
     long readRegister(long regID){
         switch ((int) regID){
             case 0:
@@ -257,5 +270,56 @@ public class AssemblyRunner {
                 return regs.isp;
         }
         return 0;
+    }
+
+    long lea(Argument arg){
+        switch (arg.argType){
+            case indirect1:
+                return arg.data1;
+            case indirect2:
+                return readRegister(arg.data1);
+            case indirect3:
+                return arg.data1 + readRegister(arg.data2);
+        }
+        return 0L;
+    }
+
+    void saveToReg(long val, long reg){
+        switch ((int) reg){
+            case 0:
+                regs.rax = val;
+            case 1:
+                regs.rbx = val;
+            case 2:
+                regs.rcx = val;
+            case 3:
+                regs.rdx = val;
+            case 4:
+                regs.rsi = val;
+            case 5:
+                regs.rdi = val;
+            case 6:
+                regs.rbp = val;
+            case 7:
+                regs.rsp = val;
+            case 8:
+                regs.r8 = val;
+            case 9:
+                regs.r9 = val;
+            case 10:
+                regs.r10 = val;
+            case 11:
+                regs.r11 = val;
+            case 12:
+                regs.r12 = val;
+            case 13:
+                regs.r13 = val;
+            case 14:
+                regs.r14 = val;
+            case 15:
+                regs.r15 = val;
+            case 16:
+                regs.isp = val;
+        }
     }
 }

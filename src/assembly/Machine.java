@@ -1,8 +1,8 @@
 package assembly;
 
 public class Machine {
-    Memory mem = new Memory();
-    AssemblyRunner assemblyRunner = new AssemblyRunner();
+    Memory mem = new Memory(1024);
+    AssemblyRunner assemblyRunner = new AssemblyRunner(null, null);
     DataRegs regs = new DataRegs();
     InstructionStream instructionStream;
 

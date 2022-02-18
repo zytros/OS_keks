@@ -12,9 +12,13 @@ public class AssemblySimulator {
     long[] data = new long[100];
     InstructionStream instructionStream;
     public static void main(String[] args) {
-        System.out.println(Operation.add);
-        AssemblyRunner assemblyRunner = new AssemblyRunner();
-        assemblyRunner.execute(new Instruction(Operation.cmp,new Argument(ArgType.immediate, 0L), new Argument(ArgType.immediate, 0L)));
+        Memory mem = new Memory(1024);
+        DataRegs regs = new DataRegs();
+        AssemblyRunner assemblyRunner = new AssemblyRunner(regs, mem);
+        assemblyRunner.execute(new Instruction(Operation.mov,new Argument(ArgType.immediate, 100), new Argument(ArgType.indirect1, 500)));  //mov $100 ($500)
+        assemblyRunner.execute(new Instruction(Operation.mov,new Argument(ArgType.immediate, 50), new Argument(ArgType.register, 0)));      //mov $50 %rax
+        assemblyRunner.execute(new Instruction(Operation.shl,new Argument(ArgType.indirect1, 500), new Argument(ArgType.immediate, 2)));  //shl ($500) 2
+        System.out.println(mem.memory[500]);
     }
 
     public void run(){
